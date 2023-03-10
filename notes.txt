@@ -90,3 +90,6 @@ Codebase Structure
             PasswordDTO // File
                 string Salt
                 string Hash
+
+Admin: AcademyBlogAdmin
+Password: AcademyBlogPassword!
