@@ -33,13 +33,28 @@ namespace blogbackend.Controllers
         {
             return _data.AddUser(UserToAdd);
         }
-        // Update User
+        // Update User Account
         [HttpPost]
         [Route("UpdateUser")]
         public bool UpdateUser(UserModel userToUpdate){
             return _data.UpdateUser(userToUpdate);
         }
-        // Delete User
+
+        // Alt way to update user account (nicer to frontend Dev)
+        [HttpPost]
+        [Route("UpdateUser/{id}/{username}")]
+        public bool UpdateUser(int id, string username)
+        {
+            return _data.UpdateUsername(id, username);
+        }
+
+        // Delete User Account
+        [HttpDelete]
+        [Route("DeleteUser/{userToDelete}")]
+        public bool DeleteUser(string userToDelete)
+        {
+            return _data.DeleteUser(userToDelete);
+        }
     }
 }
 

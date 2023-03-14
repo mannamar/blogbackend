@@ -29,7 +29,7 @@ namespace blogbackend.Services
             // If no item matches the condition, return null
             // If multiple items matche, an error will occur
 
-            return _context.UserInfo.SingleOrDefault( user => user.Username == Username ) != null;
+            return _context.UserInfo.SingleOrDefault(user => user.Username == Username) != null;
         }
         public bool AddUser(CreateAccountDTO UserToAdd)
         {
@@ -39,7 +39,7 @@ namespace blogbackend.Services
             bool result = false;
 
             // If the user does not exist
-            if(!DoesUserExist(UserToAdd.Username))
+            if (!DoesUserExist(UserToAdd.Username))
             {
                 // Create a new instance of user model (empty object)
                 UserModel newUser = new UserModel();
@@ -135,6 +135,48 @@ namespace blogbackend.Services
         public UserModel GetUserByUsername(string? username)
         {
             return _context.UserInfo.SingleOrDefault(user => user.Username == username);
+        }
+
+        public bool UpdateUser(UserModel userToUpdate)
+        {
+            // This one is sending over the whole object to be updated
+            _context.Update<UserModel>(userToUpdate);
+            return _context.SaveChanges() != 0;
+        }
+
+        public bool UpdateUsername(int id, string username)
+        {
+            // This one is sending over just the id and username
+            // We have to get the object to then be updated
+            var foundUser = GetUserById(id);
+            bool result = false;
+            if (foundUser != null)
+            {
+                // This means a user was found
+                foundUser.Username = username;
+                _context.Update<UserModel>(foundUser);
+                result = _context.SaveChanges() != 0;
+            }
+            return result;
+        }
+        public UserModel GetUserById(int id)
+        {
+            return _context.UserInfo.SingleOrDefault(user => user.Id == id);
+        }
+
+        public bool DeleteUser(string userToDelete)
+        {
+            // This one is jsut sending over the username
+            // We have to get the object to be deleted
+            UserModel foundUser = GetUserByUsername(userToDelete);
+            bool result = false;
+            if(foundUser != null)
+            {
+                // A user was found
+                _context.Remove<UserModel>(foundUser);
+                result = _context.SaveChanges() != 0;
+            }
+            return result;
         }
     }
 }
