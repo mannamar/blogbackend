@@ -6,10 +6,15 @@ using blogbackend.Models;
 using blogbackend.Models.DTO;
 using blogbackend.Services.Context;
 using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Security.Claims;
 
 namespace blogbackend.Services
 {
-    public class UserService
+    public class UserService : ControllerBase
     {
         private readonly DataContext _context;
         public UserService(DataContext context)
@@ -95,5 +100,41 @@ namespace blogbackend.Services
             return newHash == storedHash;
         }
 
+        public IActionResult Login(LoginDTO User)
+        {
+            // Return an error code if the user does not have a valid username or password
+            IActionResult Result = Unauthorized();
+
+            // Check to see if the user exists
+            if (DoesUserExist(User.Username))
+            {
+                // True
+                // Store user object
+                // Create another helper function
+                UserModel foundUser = GetUserByUsername(User.Username);
+                // Check if the password is correct
+                if (VerifyUserPassword(User.Password, foundUser.Hash, foundUser.Salt))
+                {
+                    var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
+                    var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+                    var tokeOptions = new JwtSecurityToken(
+                        issuer: "http://localhost:5000",
+                        audience: "http://localhost:5000",
+                        claims: new List<Claim>(),
+                        expires: DateTime.Now.AddMinutes(30),
+                        signingCredentials: signinCredentials
+                    );
+                    var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+                    Result = Ok(new { Token = tokenString });
+                }
+            }
+
+            return Result;
+        }
+
+        public UserModel GetUserByUsername(string? username)
+        {
+            return _context.UserInfo.SingleOrDefault(user => user.Username == username);
+        }
     }
 }
