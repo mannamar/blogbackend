@@ -8,7 +8,7 @@ namespace blogbackend.Models
     public class BlogItemModel
     {
         public int Id { get; set; }
-        public int UserID { get; set; }
+        public int Userid { get; set; }
         public string? PublishdName { get; set; }
         public string? Date { get; set; }
         public string? Title { get; set; }
