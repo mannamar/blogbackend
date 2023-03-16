@@ -70,5 +70,27 @@ namespace blogbackend.Controllers
         {
             return _data.GetItemsByTag(Tag);
         }
+
+        [HttpGet]
+        [Route("GetBlogItemById/{Id}")]
+        public BlogItemModel GetBlogItemById(int id)
+        {
+            return _data.GetBlogItemById(id);
+        }
+
+        [HttpPost]
+        [Route("UpdateBlogItem")]
+
+        public bool UpdateBlogItem(BlogItemModel BlogUpdate)
+        {
+            return _data.UpdateBlogItem(BlogUpdate);
+        }
+
+        [HttpPost]
+        [Route("DeleteBlogItem")]
+        public bool DeleteBlogItem(BlogItemModel BlogDelete)
+        {
+            return _data.DeleteBlogItem(BlogDelete);
+        }
     }
 }

@@ -67,5 +67,23 @@ namespace blogbackend.Services
 
             return AllBlogsWithTag;
         }
+
+        public BlogItemModel GetBlogItemById(int id)
+        {
+            return _context.BlogInfo.SingleOrDefault(item => item.Id == id);
+        }
+
+        public bool UpdateBlogItem(BlogItemModel BlogUpdate)
+        {
+            _context.Update<BlogItemModel>(BlogUpdate);
+            return _context.SaveChanges() != 0;
+        }
+
+        public bool DeleteBlogItem(BlogItemModel BlogDelete)
+        {
+            BlogDelete.isDeleted = true;
+            _context.Update<BlogItemModel>(BlogDelete);
+            return _context.SaveChanges() != 0;
+        }
     }
 }

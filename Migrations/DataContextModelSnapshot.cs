@@ -50,7 +50,7 @@ namespace blogbackend.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("Userid")
                         .HasColumnType("int");
 
                     b.Property<bool>("isDeleted")

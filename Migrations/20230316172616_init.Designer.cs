@@ -11,7 +11,7 @@ using blogbackend.Services.Context;
 namespace blogbackend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230310191537_init")]
+    [Migration("20230316172616_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -53,7 +53,7 @@ namespace blogbackend.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserID")
+                    b.Property<int>("Userid")
                         .HasColumnType("int");
 
                     b.Property<bool>("isDeleted")

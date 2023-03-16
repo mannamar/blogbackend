@@ -16,7 +16,7 @@ namespace blogbackend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    Userid = table.Column<int>(type: "int", nullable: false),
                     PublishdName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Date = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),

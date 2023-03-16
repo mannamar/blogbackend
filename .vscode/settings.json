@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/ba91252f-af88-4117-9bf7-a3136650bcbb/resourceGroups/Blog/providers/Microsoft.Web/sites/AmarBlogAPI",
+    "appService.deploySubpath": "publish"
+}
