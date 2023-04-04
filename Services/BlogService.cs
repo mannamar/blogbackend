@@ -12,7 +12,7 @@ namespace blogbackend.Services
         private readonly DataContext _context;
         public BlogService(DataContext context)
         {
-            
+            _context = context;
         }
         public bool AddBlogItem (BlogItemModel newBlogItem)
         {
